@@ -10,7 +10,8 @@ pipeline {
 
     stage('Deploy Container') {
       steps {
-        sh 'docker run -d --name todoapp -p 8080:9000 todo'
+        sh 'docker rm -f todoapp1 || true'
+        sh 'docker run -d --name todoapp1 -p 8080:8000 todo'
       }
     }
   }
