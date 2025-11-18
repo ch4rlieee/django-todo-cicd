@@ -11,7 +11,7 @@ pipeline {
     stage('Deploy Container') {
       steps {
         sh 'docker rm -f todoapp1 || true'
-        sh 'docker run -d --name todoapp1 -p 8080:8000 todo'
+        sh 'docker run -d --name todoapp2 -p 8080:8002 todo'
       }
     }
   }
