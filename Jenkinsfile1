@@ -2,31 +2,16 @@ pipeline {
   agent any
 
   stages {
-
-    stage('Build') {
-      agent {
-        docker { 
-          image 'python:3.10'
-        }
-      }
+    stage('Build Docker Image') {
       steps {
-        sh """
-          pip install django
-          python manage.py migrate --noinput
-        """
+        sh 'docker build -t todo .'
       }
     }
 
-    stage('Deploy') {
+    stage('Deploy Container') {
       steps {
-        sh """
-          docker build -t todo:latest .
-          docker stop todo || true
-          docker rm todo || true
-          docker run -d --name todo -p 8000:8000 todo:latest
-        """
+        sh 'docker run -d --name todoapp -p 8000:8000 todo'
       }
     }
-
   }
 }
